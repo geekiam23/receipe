@@ -1,6 +1,6 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
-function App() {
+const App = (): ReactElement => {
   return (
     <div className="App">
       <div className="w-full max-w-md bg-gray-800">
@@ -41,6 +41,6 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
 export default App;
