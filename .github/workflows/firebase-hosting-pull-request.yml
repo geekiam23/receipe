@@ -16,7 +16,7 @@ jobs:
           npm install -g yarn
       - uses: actions/checkout@v2
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: rm -rf node_modules && yarn install --frozen-lockfile
       - run: yarn build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
