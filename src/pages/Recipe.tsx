@@ -1,25 +1,25 @@
 import { ReactElement, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import recipeData from "../recipe.json";
+// import recipeData from "../recipe.json";
 
 const Recipe = (): ReactElement => {
-  const [recipe, setRecipe] = useState(recipeData);
-  // const [recipe, setRecipe] = useState(null);
-  // const params = useParams();
+  // const [recipe, setRecipe] = useState(recipeData);
+  const [recipe, setRecipe] = useState(null);
+  const params = useParams();
 
-  // useEffect(() => {
-  //   fetch(
-  //     `https://api.spoonacular.com/recipes/${params.id}/information?includeNutrition=true&apiKey=${process.env.REACT_APP_SPOONTACULAR_API_KEY_2}`
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data) => setRecipe(data));
-  // }, []);
+  useEffect(() => {
+    fetch(
+      `https://api.spoonacular.com/recipes/${params.id}/information?includeNutrition=true&apiKey=${process.env.REACT_APP_SPOONTACULAR_API_KEY_2}`
+    )
+      .then((res) => res.json())
+      .then((data) => setRecipe(data));
+  }, []);
 
   if (!recipe) return null;
 
   return (
     <>
-      <div className="relative bg-white py-16 sm:py-24">
+      <div className="relative bg-gray-1 py-8">
         <div className="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:gap-24 lg:items-start">
           <div className="relative sm:py-16 lg:py-0">
             <div
@@ -68,13 +68,6 @@ const Recipe = (): ReactElement => {
                   alt=""
                 />
                 <div className="relative px-8">
-                  <div>
-                    <img
-                      className="h-12"
-                      src="https://tailwindui.com/img/logos/workcation.svg?color=white"
-                      alt="Workcation"
-                    />
-                  </div>
                   <blockquote className="mt-8">
                     <div className="relative text-lg font-medium text-white md:flex-grow">
                       <svg
@@ -91,12 +84,6 @@ const Recipe = (): ReactElement => {
                         cursus nulla feugiat dignissim id lobortis amet.
                       </p>
                     </div>
-
-                    <footer className="mt-4">
-                      <p className="text-base font-semibold text-indigo-200">
-                        Sarah Williams, CEO at Workcation
-                      </p>
-                    </footer>
                   </blockquote>
                 </div>
               </div>
@@ -109,22 +96,8 @@ const Recipe = (): ReactElement => {
                 {recipe.title}
               </h2>
               <div className="mt-6 text-gray-500 space-y-6">
-                <p className="text-lg">{recipe.summary}</p>
-                <p className="text-base leading-7">
-                  Sollicitudin tristique eros erat odio sed vitae, consequat
-                  turpis elementum. Lorem nibh vel, eget pretium arcu vitae.
-                  Eros eu viverra donec ut volutpat donec laoreet quam urna.
-                  Sollicitudin tristique eros erat odio sed vitae, consequat
-                  turpis elementum. Lorem nibh vel, eget pretium arcu vitae.
-                  Eros eu viverra donec ut volutpat donec laoreet quam urna.
-                </p>
-                <p className="text-base leading-7">
-                  Rhoncus nisl, libero egestas diam fermentum dui. At quis
-                  tincidunt vel ultricies. Vulputate aliquet velit faucibus
-                  semper. Pellentesque in venenatis vestibulum consectetur nibh
-                  id. In id ut tempus egestas. Enim sit aliquam nec, a. Morbi
-                  enim fermentum lacus in. Viverra.
-                </p>
+                {/* TODO: Research more to understand */}
+                <div dangerouslySetInnerHTML={{ __html: recipe.summary }} />
               </div>
             </div>
 

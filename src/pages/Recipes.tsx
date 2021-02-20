@@ -2,22 +2,22 @@ import React, { FC, ReactElement, useEffect, useState } from "react";
 import TableBody from "../components/Table/TableBody";
 import TableHeader from "../components/Table/TableHeader";
 import RecipeCard from "../components/RecipeCard";
-import recipes from "../recipes.json";
+// import recipes from "../recipes.json";
 import ButtonGroup from "../components/ButtonGroup";
 
 const Recipes = (): ReactElement => {
   const [showTable, setShowTable] = useState<boolean>(false);
 
-  const [data, setData] = useState(recipes);
-  // const [data, setData] = useState(null);
+  // const [data, setData] = useState(recipes);
+  const [data, setData] = useState(null);
 
-  // useEffect(() => {
-  //   fetch(
-  //     `https://api.spoonacular.com/recipes/random?limitLicense=false&number=20&apiKey=${process.env.REACT_APP_SPOONTACULAR_API_KEY_2}`
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data) => setData(data));
-  // }, []);
+  useEffect(() => {
+    fetch(
+      `https://api.spoonacular.com/recipes/random?limitLicense=false&number=20&apiKey=${process.env.REACT_APP_SPOONTACULAR_API_KEY_2}`
+    )
+      .then((res) => res.json())
+      .then((data) => setData(data));
+  }, []);
 
   const handleShowTable = () => setShowTable(!showTable);
 
