@@ -43,7 +43,7 @@ const Recipes = (): ReactElement => {
           )}
 
           {!showTable && (
-            <div className="hidden mt-8 sm:block">
+            <div className="mt-8 sm:block">
               <div className="align-middle inline-block min-w-full border-b border-gray-200">
                 <table className="min-w-full">
                   <TableHeader />
