@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 
 const Navbar = (): ReactElement => {
   const [openMenu, setOpenMenu] = useState(false);
-  const [searchQuery, setSearchQuery] = useState(null);
-  const [searchData, setSearchData] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchData, setSearchData] = useState([]);
 
   useEffect(() => {
+    if (!searchQuery) return;
     fetch(
       `https://api.spoonacular.com/recipes/complexSearch?query=${searchQuery}&apiKey=${process.env.REACT_APP_SPOONTACULAR_API_KEY_2}`
     )
