@@ -1,5 +1,3 @@
-/* eslint react/prop-types: 0 */
-
 import { ReactElement } from "react";
 import { Link } from "react-router-dom";
 

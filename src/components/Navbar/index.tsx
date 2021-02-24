@@ -1,19 +1,30 @@
-import { ReactElement, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { cleanup } from "@testing-library/react";
+import React, { ReactElement, useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import Logo from "./Logo";
+import Menu from "./Menu";
 
 const Navbar = (): ReactElement => {
   const [openMenu, setOpenMenu] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchData, setSearchData] = useState([]);
 
+  const location = useLocation();
+
   useEffect(() => {
     if (!searchQuery) return;
     fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?query=${searchQuery}&apiKey=${process.env.REACT_APP_SPOONTACULAR_API_KEY_2}`
+      `https://api.spoonacular.com/recipes/complexSearch?query=${searchQuery}&apiKey=${process.env.REACT_APP_SPOONTACULAR_API_KEY}`
     )
       .then((res) => res.json())
       .then((data) => setSearchData(data.results));
   }, [searchQuery]);
+
+  useEffect(() => {
+    setOpenMenu(false);
+    setSearchQuery("");
+    setSearchData([]);
+  }, [location]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -31,15 +42,7 @@ const Navbar = (): ReactElement => {
       <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex px-2 lg:px-0">
-            <div className="flex-shrink-0 flex items-center">
-              <Link to="/">
-                <img
-                  className="hidden lg:block h-8 w-auto"
-                  src="https://cdn0.iconfinder.com/data/icons/cute-food/376/CuteFood_-_Artboard_Icon_Only-02-512.png"
-                  alt="Workflow"
-                />
-              </Link>
-            </div>
+            <Logo />
             <div className="hidden lg:ml-6 lg:flex lg:space-x-8">
               <a
                 href="#"
@@ -81,7 +84,13 @@ const Navbar = (): ReactElement => {
                   onKeyPress={handleKeypress}
                 />
               </div>
-              <ul className="divide-y divide-gray-200 bg-white border border-gray-100 w-full absolute ">
+              <ul
+                className="divide-y divide-gray-200 bg-white border border-gray-100 w-full absolute "
+                onClick={() => {
+                  setSearchQuery("");
+                  setSearchData(null);
+                }}
+              >
                 {searchData &&
                   searchData.map((recipe) => (
                     <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
@@ -106,6 +115,7 @@ const Navbar = (): ReactElement => {
             <button
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
               aria-expanded="false"
+              onClick={() => setOpenMenu(!openMenu)}
             >
               <span className="sr-only">Open main menu</span>
               <svg
@@ -139,6 +149,7 @@ const Navbar = (): ReactElement => {
                 />
               </svg>
             </button>
+            <Menu openMenu={openMenu} />
           </div>
           <div className="hidden lg:ml-4 lg:flex lg:items-center">
             <button className="flex-shrink-0 bg-white p-1 text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -176,36 +187,7 @@ const Navbar = (): ReactElement => {
                   />
                 </button>
               </div>
-              {openMenu && (
-                <div
-                  className="origin-top-right absolute right-0 mt-2 w-48 z-10 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5"
-                  role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="user-menu"
-                >
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    role="menuitem"
-                  >
-                    Your Profil
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    role="menuitem"
-                  >
-                    Settings
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    role="menuitem"
-                  >
-                    Sign out
-                  </a>
-                </div>
-              )}
+              <Menu openMenu={openMenu} />
             </div>
           </div>
         </div>

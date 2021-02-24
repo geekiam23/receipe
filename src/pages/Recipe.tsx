@@ -1,19 +1,17 @@
 import { ReactElement, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-// import recipeData from "../recipe.json";
 
 const Recipe = (): ReactElement => {
-  // const [recipe, setRecipe] = useState(recipeData);
   const [recipe, setRecipe] = useState(null);
   const params = useParams();
 
   useEffect(() => {
     fetch(
-      `https://api.spoonacular.com/recipes/${params.id}/information?includeNutrition=true&apiKey=${process.env.REACT_APP_SPOONTACULAR_API_KEY_2}`
+      `https://api.spoonacular.com/recipes/${params.id}/information?includeNutrition=true&apiKey=${process.env.REACT_APP_SPOONTACULAR_API_KEY}`
     )
       .then((res) => res.json())
       .then((data) => setRecipe(data));
-  }, []);
+  }, [params.id]);
 
   if (!recipe) return null;
 
