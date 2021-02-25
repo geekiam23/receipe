@@ -1,21 +1,61 @@
-import React, { ReactElement, useEffect, useState } from "react";
-import TableBody from "../components/Table/TableBody";
-import TableHeader from "../components/Table/TableHeader";
+import { ReactElement, useEffect, useState } from "react";
 import RecipeCard from "../components/RecipeCard";
 import ButtonGroup from "../components/ButtonGroup";
+import firebase from "../config/firebase";
+import Table from "../components/Table";
+import recipes from "../recipes.json";
+
+const db = firebase.database();
 
 const Recipes = (): ReactElement => {
   const [showTable, setShowTable] = useState<boolean>(false);
-
   const [data, setData] = useState(null);
+  const [favs, setFavs] = useState([]);
+  const [favsData, setFavsData] = useState([]);
+
+  useEffect(() => {
+    const userId = 1;
+    const ref = db.ref(`users/${userId}`);
+
+    ref.on("value", (snapshot) => {
+      setFavs(snapshot.val().favorites || []);
+      const recipesIds = snapshot.val().favorites.toString();
+
+      if (!recipesIds) return;
+      fetch(
+        `https://api.spoonacular.com/recipes/informationBulk?ids=${recipesIds}&includeNutrition=true&apiKey=${process.env.REACT_APP_SPOONTACULAR_API_KEY}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setFavsData(data);
+        });
+    });
+
+    return () => ref.off();
+  }, []);
 
   useEffect(() => {
     fetch(
-      `https://api.spoonacular.com/recipes/random?limitLicense=false&number=20&apiKey=${process.env.REACT_APP_SPOONTACULAR_API_KEY}`
+      `https://api.spoonacular.com/recipes/random?limitLicense=false&number=20&apiKey=${process.env.REACT_APP_SPOONTACULAR_API_KEY_2}`
     )
       .then((res) => res.json())
-      .then((data) => setData(data));
-  }, []);
+      .then((data) => {
+        const newRecipes = recipes.recipes.map((recipe) => {
+          return { ...recipe, favorite: favs.includes(recipe.id) };
+        });
+        setData(newRecipes);
+      });
+  }, [data]);
+
+  const handleFavorites = (id) => {
+    if (favs.includes(id)) return;
+
+    favs.push(id);
+
+    db.ref("users/" + 1).update({
+      favorites: favs,
+    });
+  };
 
   const handleShowTable = () => setShowTable(!showTable);
 
@@ -23,36 +63,19 @@ const Recipes = (): ReactElement => {
 
   return (
     <>
-      <div className="flex flex-col flex-1 overflow-hidden max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <div className="flex flex-col flex-1 overflow-hidden max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white">
         <ButtonGroup showTable={showTable} handleShowTable={handleShowTable} />
         <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none">
+          {favsData.length > 0 && (
+            <Table recipes={favsData} handleFavorites={handleFavorites} />
+          )}
+
           {showTable && (
-            <div className="bg-white" onClick={handleShowTable}>
-              <div className="mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-12">
-                <div className="space-y-12">
-                  <ul className="space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-3 lg:gap-x-8">
-                    {data.recipes?.map((recipe: any) => (
-                      <RecipeCard key={recipe.id} recipe={recipe} />
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
+            <RecipeCard recipes={data} handleFavs={handleFavorites} />
           )}
 
           {!showTable && (
-            <div className="mt-8 sm:block">
-              <div className="align-middle inline-block min-w-full border-b border-gray-200">
-                <table className="min-w-full">
-                  <TableHeader />
-                  <tbody className="bg-white divide-y divide-gray-100">
-                    {data.recipes?.map((recipe: any) => (
-                      <TableBody key={recipe.id} recipe={recipe} />
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+            <Table recipes={data} handleFavorites={handleFavorites} />
           )}
         </main>
       </div>
