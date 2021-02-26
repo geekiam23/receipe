@@ -1,47 +1,125 @@
-# Getting Started with Create React App
+# Welcome to Recipes!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Hi! Thank you for visiting my recipes app. This app was built to help me get familiar with React best practices. I am familiar with some items and there are others that I will be learning for the first time. Below I will list out what those best practices are and where they were utilized in the app.
 
-## Available Scripts
+## Live Site
+[Firebase]( https://recipe-app-6002c.web.app/)
+[Netilify](https://trusting-bhaskara-e14231.netlify.app/)
 
-In the project directory, you can run:
+# Installation
+- Pull down code.
+- Create a firebase database
+	- Add firebase config to .env.local
+- Go to [**Spoontacular.com**](spoontacular.com/food-api) to sign up for an api key.
+	- Add key to .env.local
+- Run **yarn start**
 
-### `yarn start`
+## Goal 
+ 
+**- React Basics**
+ - [x] .then
+ - [ ] async/await
+ - [ ] .find
+ - [ ] .reduce
+ - [x] .map
+ - [ ] .filter
+ - [x] .includes
+ - [ ] memoization
+ - [ ] hoc patterns
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+**- React Router**
+ - [x] react router dom
+ - [ ] withRouter()
+ - [ ] nesting routing
+ - [ ] collection routing
+ - [ ] memoizing selectCollection and collectionUrlParam
+ - [ ] currying
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+**- React Forms**
+ - [ ] formik
 
-### `yarn test`
+**- Firebase & User Auth**
+ - [ ] setup
+ - [ ] store and fetch data
+ - [ ] Sign in
+ - [ ] Sign up
+ - [ ] Firestore
+ - [ ] using firebase and redux
+ - [ ] security
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**- Redux**
+ - [ ] concepts
+ - [ ] actions and reducers
+ - [ ] connect() and mapStateToProps()
+ - [ ] mapDispatchToProps
+ - [ ] redirect and action type
+		
+**- Redux Saga**
+ - [ ] saga flow
+ - [ ] generator functions
+ - [ ] take(), takeEvery(), takeLatest()
+ - [ ] root saga
+ - [ ] persistance
 
-### `yarn build`
+**- Asynchronous Redux**
+ - [ ] observables + observer pattern
+ - [ ] promise pattern
+ - [ ] redux thunk
+ - [ ] debugging
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**- React Hooks**
+ - [ ] useState
+ - [ ] useEffect
+ - [ ] useRef
+ - [ ] useReducer
+ - [ ] useCallback
+ - [ ] useContext
+ - [ ] useLayoutEffect
+ - [ ] useImperativeHandle
+ - [ ] useDebugValue
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**- Context API**
+ - [ ] provider
+ - [ ] context consumer + useContext hook
+ - [ ] patterns
+ - [ ] redux vs context api
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**- Stripe API**
+ - [ ] integration
 
-### `yarn eject`
+**- Tailwind**
+ - [ ] integration
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**- GraphQL**
+ - [ ] mutations
+ - [ ] apollo overview
+ - [ ] query with variables
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**- React Performance**
+ - [ ] react lazy + suspense
+ - [ ] error boundaries
+ - [ ] useMemo, useCallback
+ - [ ] Gzipping and compression
+ - [ ] react <Profiler>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+**- Testing with Jest, Enzyme and Snapshot testing**
+ - [ ] unit
+ - [ ] integration
+ - [ ] automation
+ - [ ] async tests
+ - [ ] mocks and spies
+ - [ ] testing 
+	 - [ ] stateful components
+	 - [ ] connected components
+	 - [ ] reducers
+	 - [ ] actions
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**- Persistance + Session Storage**
+ - [ ] local storage
+ - [ ] session storage
+ - [ ] redux persist
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-# receipe
+**- State Normalization**
+ - [ ] data normalization
+ - [ ] hash tables vs tables
+ - [ ] data flow
