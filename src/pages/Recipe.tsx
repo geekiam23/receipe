@@ -63,7 +63,7 @@ const Recipe = (): ReactElement => {
                 <img
                   className="absolute inset-0 h-full w-full object-cover"
                   src={recipe.image}
-                  alt=""
+                  alt="image of finished recipe"
                 />
                 <div className="relative px-8">
                   <blockquote className="mt-8">
