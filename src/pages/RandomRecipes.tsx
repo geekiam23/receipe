@@ -7,8 +7,8 @@ import Table from "../components/Table";
 
 const Recipes = (): ReactElement => {
   const [showTable, setShowTable] = useState<boolean>(false);
+  const [recipesData, setRecipesData] = useState([]);
   const [favs, setFavs] = useState([]);
-  const [favsData, setFavsData] = useState([]);
 
   const addFavToRecipeData = (data) => {
     if (data.length === 0) return [];
@@ -19,27 +19,16 @@ const Recipes = (): ReactElement => {
   };
 
   useEffect(() => {
-    const userId = 1;
-    const ref = database.ref(`users/${userId}`);
+    fetch(
+      `https://api.spoonacular.com/recipes/random?limitLicense=false&number=2&apiKey=${process.env.REACT_APP_SPOONTACULAR_API_KEY_2}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "failure") return;
 
-    ref.on("value", (snapshot) => {
-      setFavs(snapshot.val().favorites || []);
-      const recipesIds = snapshot.val().favorites.toString();
-
-      if (!recipesIds) return;
-      fetch(
-        `https://api.spoonacular.com/recipes/informationBulk?ids=${recipesIds}&includeNutrition=true&apiKey=${process.env.REACT_APP_SPOONTACULAR_API_KEY_2}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.status === "failure") return;
-
-          const newFavsRecipes = addFavToRecipeData(data);
-          setFavsData(newFavsRecipes);
-        });
-    });
-
-    return () => ref.off();
+        const newRecipes = addFavToRecipeData(data.recipes);
+        setRecipesData(newRecipes);
+      });
   }, []);
 
   const handleFavorites = (id) => {
@@ -55,24 +44,25 @@ const Recipes = (): ReactElement => {
 
   const handleShowTable = () => setShowTable(!showTable);
 
-  if (!favsData) return null;
+  if (!recipesData) return null;
 
   return (
     <>
       <div className="flex flex-col flex-1 overflow-hidden max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white">
         <div className="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
           <h3 className="text-lg leading-6 font-medium text-gray-900">
-            Favorite Recipes
+            Random Recipes
           </h3>
         </div>
         <ButtonGroup showTable={showTable} handleShowTable={handleShowTable} />
         <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none">
-          {favsData.length > 0 && showTable && (
-            <Table recipes={favsData} handleFavorites={handleFavorites} />
+          <span className="flex divide-y-4 divide-black divide-opacity-25" />
+          {!showTable && (
+            <RecipeCard recipes={recipesData} handleFavs={handleFavorites} />
           )}
 
-          {favsData.length > 0 && !showTable && (
-            <RecipeCard recipes={favsData} handleFavs={handleFavorites} />
+          {showTable && (
+            <Table recipes={recipesData} handleFavorites={handleFavorites} />
           )}
         </main>
       </div>
