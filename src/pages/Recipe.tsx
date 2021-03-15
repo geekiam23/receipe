@@ -83,7 +83,7 @@ const Recipe = (): ReactElement => {
                       <img
                         className="inline-block h-9 w-9 rounded-full"
                         src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`}
-                        alt=""
+                        alt="image of ingredient"
                       />
                     </div>
                     <div className="ml-3">

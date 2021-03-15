@@ -6,7 +6,7 @@ const ImageDescription = ({ item, url }) => {
           <img
             className="inline-block h-9 w-9 rounded-full"
             src={url + item.image}
-            alt=""
+            alt="image of ingredient or tool"
           />
         </div>
         <div className="ml-3">
