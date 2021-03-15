@@ -14,8 +14,13 @@ const config = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
-firebase.initializeApp(config);
-firebase.analytics();
-firebase.database();
+if (!firebase.apps.length) {
+  firebase.initializeApp(config);
+} else {
+  firebase.app();
+}
+
+export const firestore = firebase.firestore();
+export const database = firebase.database();
 
 export default firebase;
