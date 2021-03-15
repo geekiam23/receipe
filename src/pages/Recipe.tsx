@@ -1,5 +1,8 @@
 import { ReactElement, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Instructions from "../components/Instructions";
+import Tags from "../components/Tags";
+import recipeData from "../recipe.json";
 
 const Recipe = (): ReactElement => {
   const [recipe, setRecipe] = useState(null);
@@ -19,12 +22,11 @@ const Recipe = (): ReactElement => {
     <>
       <div className="relative bg-gray-1 py-8">
         <div className="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:gap-24 lg:items-start">
-          <div className="relative sm:py-16 lg:py-0">
+          <div className="relative sm:pb-8 sm:pt-16 lg:py-0">
             <div
               aria-hidden="true"
               className="hidden sm:block lg:absolute lg:inset-y-0 lg:right-0 lg:w-screen"
             >
-              <div className="absolute inset-y-0 right-1/2 w-full bg-gray-50 rounded-r-3xl lg:right-72"></div>
               <svg
                 className="absolute top-8 left-1/2 -ml-3 lg:-right-8 lg:left-auto lg:top-12"
                 width="404"
@@ -58,33 +60,49 @@ const Recipe = (): ReactElement => {
                 />
               </svg>
             </div>
-            <div className="relative mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-0 lg:max-w-none lg:py-20">
+            <div className="relative mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-0 lg:max-w-none lg:pt-20 lg:pb-5">
               <div className="relative pt-64 pb-10 rounded-2xl shadow-xl overflow-hidden">
                 <img
                   className="absolute inset-0 h-full w-full object-cover"
                   src={recipe.image}
                   alt="image of finished recipe"
                 />
-                <div className="relative px-8">
-                  <blockquote className="mt-8">
-                    <div className="relative text-lg font-medium text-white md:flex-grow">
-                      <svg
-                        className="absolute top-0 left-0 transform -translate-x-3 -translate-y-2 h-8 w-8 text-indigo-400"
-                        fill="currentColor"
-                        viewBox="0 0 32 32"
-                        aria-hidden="true"
-                      >
-                        <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
-                      </svg>
-                      <p className="relative">
-                        Tincidunt integer commodo, cursus etiam aliquam neque,
-                        et. Consectetur pretium in volutpat, diam. Montes, magna
-                        cursus nulla feugiat dignissim id lobortis amet.
+              </div>
+            </div>
+
+            <Tags recipe={recipe} />
+
+            <div className="z-10 relative px-20 lg:py-3 lg:px-4 flex-wrap grid grid-cols-2">
+              {recipe.extendedIngredients.map((ingredient) => {
+                return (
+                  <div
+                    key={ingredient.id}
+                    className="flex items-center mr-5 mb-5"
+                  >
+                    <div>
+                      <img
+                        className="inline-block h-9 w-9 rounded-full"
+                        src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`}
+                        alt=""
+                      />
+                    </div>
+                    <div className="ml-3">
+                      <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
+                        {ingredient.original}
+                      </p>
+                      <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">
+                        ({ingredient.aisle})
                       </p>
                     </div>
-                  </blockquote>
-                </div>
-              </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="border-t-4 border-black-100">
+              {recipe.analyzedInstructions[0].steps.map((step, index) => (
+                <Instructions key={step.number} step={step} />
+              ))}
             </div>
           </div>
 
@@ -94,19 +112,27 @@ const Recipe = (): ReactElement => {
                 {recipe.title}
               </h2>
               <div className="mt-6 text-gray-500 space-y-6">
-                {/* TODO: Research more to understand */}
                 <div dangerouslySetInnerHTML={{ __html: recipe.summary }} />
               </div>
             </div>
 
             <div className="mt-10">
-              <dl className="grid grid-cols-2 gap-x-4 gap-y-8">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-8">
                 <div className="border-t-2 border-gray-100 pt-6">
                   <dt className="text-base font-medium text-gray-500">
                     Total Time
                   </dt>
                   <dd className="text-3xl font-extrabold tracking-tight text-gray-900">
                     {recipe.readyInMinutes}
+                  </dd>
+                </div>
+
+                <div className="border-t-2 border-gray-100 pt-6">
+                  <dt className="text-base font-medium text-gray-500">
+                    Weight Watchers
+                  </dt>
+                  <dd className="text-3xl font-extrabold tracking-tight text-gray-900">
+                    {recipe.weightWatcherSmartPoints}
                   </dd>
                 </div>
 
@@ -120,29 +146,95 @@ const Recipe = (): ReactElement => {
                 </div>
 
                 <div className="border-t-2 border-gray-100 pt-6">
-                  <dt className="text-base font-medium text-gray-500">
-                    Beta Users
-                  </dt>
+                  <dt className="text-base font-medium text-gray-500">Likes</dt>
                   <dd className="text-3xl font-extrabold tracking-tight text-gray-900">
-                    521
+                    {recipe.aggregateLikes}
                   </dd>
                 </div>
 
                 <div className="border-t-2 border-gray-100 pt-6">
                   <dt className="text-base font-medium text-gray-500">
-                    Raised
+                    Health Score
                   </dt>
                   <dd className="text-3xl font-extrabold tracking-tight text-gray-900">
-                    $25M
+                    {recipe.healthScore}
                   </dd>
                 </div>
-              </dl>
-              <div className="mt-10">
-                <a href="#" className="text-base font-medium text-indigo-600">
-                  {" "}
-                  Learn more about how were changing the world{" "}
-                  <span aria-hidden="true">&rarr;</span>{" "}
-                </a>
+                <div className="border-t-2 border-gray-100 py-6">
+                  <dt className="text-base font-medium text-gray-500">
+                    Price per Serving
+                  </dt>
+                  <dd className="text-3xl font-extrabold tracking-tight text-gray-900">
+                    {recipe.pricePerServing}
+                  </dd>
+                </div>
+              </div>
+              <div className="border-t-4 border-gray-100 py-6">
+                <dt className="text-base font-medium text-gray-500">
+                  Wine Pairings
+                </dt>
+                <dd className="text-3xl tracking-tight text-gray-900 capitalize">
+                  {recipe.winePairing.pairedWines.join(" , ")}
+                </dd>
+              </div>
+              <div className="border-t-2 border-gray-100 py-6">
+                <dt className="text-base font-medium text-gray-500">
+                  Suggested Wines
+                </dt>
+                <dd className="text-3xl tracking-tight text-gray-900 capitalize">
+                  {recipe.winePairing.productMatches.length > 0 &&
+                    recipe.winePairing.productMatches.map((product) => {
+                      return (
+                        <div key={product.id} className="py-5">
+                          <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+                            <div className="sm:col-span-2">
+                              <dt className="text-sm font-medium text-gray-500">
+                                Wine
+                              </dt>
+                              <a
+                                href={product.link}
+                                className="mt-1 text-sm text-gray-900"
+                              >
+                                {product.title}
+                              </a>
+                            </div>
+                            <div className="sm:col-span-1">
+                              <dt className="text-sm font-medium text-gray-500">
+                                Average Rating
+                              </dt>
+                              <dd className="mt-1 text-sm text-gray-900">
+                                {product.averageRating.toFixed(2)}
+                              </dd>
+                            </div>
+                            <div className="sm:col-span-1">
+                              <dt className="text-sm font-medium text-gray-500">
+                                Number of Reviews
+                              </dt>
+                              <dd className="mt-1 text-sm text-gray-900">
+                                {product.ratingCount}
+                              </dd>
+                            </div>
+                            <div className="sm:col-span-1">
+                              <dt className="text-sm font-medium text-gray-500">
+                                Price
+                              </dt>
+                              <dd className="mt-1 text-sm text-gray-900">
+                                {product.price}
+                              </dd>
+                            </div>
+                            <div className="sm:col-span-2">
+                              <dt className="text-sm font-medium text-gray-500">
+                                Desciption
+                              </dt>
+                              <dd className="mt-1 text-sm text-gray-900">
+                                {product.description}
+                              </dd>
+                            </div>
+                          </dl>
+                        </div>
+                      );
+                    })}
+                </dd>
               </div>
             </div>
           </div>

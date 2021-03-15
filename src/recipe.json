@@ -3990,8 +3990,252 @@
   ],
   "occasions": [],
   "winePairing": {},
-  "instructions": null,
-  "analyzedInstructions": [],
+  "instructions": "<ol><li>. Preheat the oven at 350. Butter and flour a 9-inch spring form pan. In a small bowl, mix the cake flour with the baking powder and salt.</li><li>2. In a bowl of a standing mixer fitted with a paddle, beat the sugar with the almond paste until crumbly. Add the butter and beat t high speed until light in color and fluffy, about 2 minutes. Add the eggs, one at the a time, beating until fully incorporated between additions. Beat the vanilla extract and vanilla seeds. Gently fold in the flour mixture until fully incorporated.</li><li>3. Scrape the batter into the prepared pan. Arrange the plums over the top of the batter. Bake for 1 hour and 5 minutes, or until the cake is deeply golden and a toothpick inserted in the center comes out clean.</li><li>4. Transfer the cake to a rack and let cool for 15 minutes. Run a knife around the edge of the cake and remove the outside ring of the pan. Let the cake cool for at least 30 minutes longer. Serve warm or at room temperature topped with crme fraiche and slivered almonds.</li><li>Make ahead: The cake can be made one day ahead and stored in an airtight container at room temperature.</li></ol>",
+  "analyzedInstructions": [
+    {
+      "name": "",
+      "steps": [
+        {
+          "number": 1,
+          "step": ". Preheat the oven at 35",
+          "ingredients": [],
+          "equipment": [
+            {
+              "id": 404784,
+              "name": "oven",
+              "localizedName": "oven",
+              "image": "oven.jpg"
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "step": "Butter and flour a 9-inch spring form pan. In a small bowl, mix the cake flour with the baking powder and salt.",
+          "ingredients": [
+            {
+              "id": 18369,
+              "name": "baking powder",
+              "localizedName": "baking powder",
+              "image": "white-powder.jpg"
+            },
+            {
+              "id": 10020129,
+              "name": "cake flour",
+              "localizedName": "cake flour",
+              "image": "flour.png"
+            },
+            {
+              "id": 1001,
+              "name": "butter",
+              "localizedName": "butter",
+              "image": "butter-sliced.jpg"
+            },
+            {
+              "id": 20081,
+              "name": "all purpose flour",
+              "localizedName": "all purpose flour",
+              "image": "flour.png"
+            },
+            {
+              "id": 2047,
+              "name": "salt",
+              "localizedName": "salt",
+              "image": "salt.jpg"
+            }
+          ],
+          "equipment": [
+            {
+              "id": 404783,
+              "name": "bowl",
+              "localizedName": "bowl",
+              "image": "bowl.jpg"
+            },
+            {
+              "id": 404645,
+              "name": "frying pan",
+              "localizedName": "frying pan",
+              "image": "pan.png"
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "step": "In a bowl of a standing mixer fitted with a paddle, beat the sugar with the almond paste until crumbly.",
+          "ingredients": [
+            {
+              "id": 12071,
+              "name": "almond paste",
+              "localizedName": "almond paste",
+              "image": "marzipan-or-almond-paste.jpg"
+            },
+            {
+              "id": 19335,
+              "name": "sugar",
+              "localizedName": "sugar",
+              "image": "sugar-in-bowl.png"
+            }
+          ],
+          "equipment": [
+            {
+              "id": 404726,
+              "name": "blender",
+              "localizedName": "blender",
+              "image": "blender.png"
+            },
+            {
+              "id": 404783,
+              "name": "bowl",
+              "localizedName": "bowl",
+              "image": "bowl.jpg"
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "step": "Add the butter and beat t high speed until light in color and fluffy, about 2 minutes.",
+          "ingredients": [
+            {
+              "id": 1001,
+              "name": "butter",
+              "localizedName": "butter",
+              "image": "butter-sliced.jpg"
+            }
+          ],
+          "equipment": [],
+          "length": {
+            "number": 2,
+            "unit": "minutes"
+          }
+        },
+        {
+          "number": 5,
+          "step": "Add the eggs, one at the a time, beating until fully incorporated between additions. Beat the vanilla extract and vanilla seeds. Gently fold in the flour mixture until fully incorporated.",
+          "ingredients": [
+            {
+              "id": 2050,
+              "name": "vanilla extract",
+              "localizedName": "vanilla extract",
+              "image": "vanilla-extract.jpg"
+            },
+            {
+              "id": 1052050,
+              "name": "vanilla",
+              "localizedName": "vanilla",
+              "image": "vanilla.jpg"
+            },
+            {
+              "id": 20081,
+              "name": "all purpose flour",
+              "localizedName": "all purpose flour",
+              "image": "flour.png"
+            },
+            {
+              "id": 93818,
+              "name": "seeds",
+              "localizedName": "seeds",
+              "image": "sunflower-seeds.jpg"
+            },
+            {
+              "id": 1123,
+              "name": "egg",
+              "localizedName": "egg",
+              "image": "egg.png"
+            }
+          ],
+          "equipment": []
+        },
+        {
+          "number": 6,
+          "step": "Scrape the batter into the prepared pan. Arrange the plums over the top of the batter.",
+          "ingredients": [
+            {
+              "id": 9279,
+              "name": "plum",
+              "localizedName": "plum",
+              "image": "plum.jpg"
+            }
+          ],
+          "equipment": [
+            {
+              "id": 404645,
+              "name": "frying pan",
+              "localizedName": "frying pan",
+              "image": "pan.png"
+            }
+          ]
+        },
+        {
+          "number": 7,
+          "step": "Bake for 1 hour and 5 minutes, or until the cake is deeply golden and a toothpick inserted in the center comes out clean.",
+          "ingredients": [],
+          "equipment": [
+            {
+              "id": 404644,
+              "name": "toothpicks",
+              "localizedName": "toothpicks",
+              "image": "toothpicks.jpg"
+            },
+            {
+              "id": 404784,
+              "name": "oven",
+              "localizedName": "oven",
+              "image": "oven.jpg"
+            }
+          ],
+          "length": {
+            "number": 65,
+            "unit": "minutes"
+          }
+        },
+        {
+          "number": 8,
+          "step": "Transfer the cake to a rack and let cool for 15 minutes. Run a knife around the edge of the cake and remove the outside ring of the pan.",
+          "ingredients": [],
+          "equipment": [
+            {
+              "id": 404745,
+              "name": "knife",
+              "localizedName": "knife",
+              "image": "chefs-knife.jpg"
+            },
+            {
+              "id": 404645,
+              "name": "frying pan",
+              "localizedName": "frying pan",
+              "image": "pan.png"
+            }
+          ],
+          "length": {
+            "number": 15,
+            "unit": "minutes"
+          }
+        },
+        {
+          "number": 9,
+          "step": "Let the cake cool for at least 30 minutes longer.",
+          "ingredients": [],
+          "equipment": [],
+          "length": {
+            "number": 30,
+            "unit": "minutes"
+          }
+        },
+        {
+          "number": 10,
+          "step": "Serve warm or at room temperature topped with crme fraiche and slivered almonds.Make ahead: The cake can be made one day ahead and stored in an airtight container at room temperature.",
+          "ingredients": [
+            {
+              "id": 10012061,
+              "name": "slivered almonds",
+              "localizedName": "slivered almonds",
+              "image": "almonds-slivered.png"
+            }
+          ],
+          "equipment": []
+        }
+      ]
+    }
+  ],
   "sourceName": null,
   "creditsText": null,
   "originalId": null
