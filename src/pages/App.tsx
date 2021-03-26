@@ -17,6 +17,7 @@ import Recipes from "./Recipes";
 import SignInAndSignUp from "./SignInAndSignUp";
 
 import Navbar from "../components/Navbar";
+import Landing from "./Landing";
 
 const App = ({ setCurrentUser, currentUser }): ReactElement => {
   useEffect(() => {
@@ -53,8 +54,9 @@ const App = ({ setCurrentUser, currentUser }): ReactElement => {
             }
           />
           <Route path="/random" component={RandomRecipes} />
+          <Route path="/fav-recipes" component={Recipes} />
           <Route path="/" exact>
-            <Recipes />
+            <Landing />
           </Route>
         </Switch>
       </UserContext.Provider>
