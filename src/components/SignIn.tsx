@@ -14,7 +14,6 @@ const Signin = ({ handleChange, user, setUser }) => {
 
     try {
       await auth.signInWithEmailAndPassword(email, password);
-      setUser({ email: "", password: "" });
 
       history.push("/");
       setError(null);

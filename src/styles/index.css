@@ -88,7 +88,7 @@
   }
 
   .search-container {
-    @apply flex-1 flex items-center justify-center px-2 lg:ml-6 lg:justify-end
+    @apply flex-1 flex items-center justify-center px-2 lg:ml-6
   }
 
   .search-input {

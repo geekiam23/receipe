@@ -1002,7 +1002,6 @@ video {
 
 @media (min-width: 1024px) {
   .search-container {
-    justify-content: flex-end;
     margin-left: 1.5rem;
   }
 }
