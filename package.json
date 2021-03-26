@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "build:style": "tailwind build src/styles/index.css -o src/styles/tailwind.css",
-    "start": "npm run build:style && react-scripts start",
+    "watch:style": "tailwind build src/styles/index.css -o src/styles/tailwind.css --watch",
+    "start": "npm run watch:style && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -39,6 +40,7 @@
     "@types/react-dom": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.14.2",
     "@typescript-eslint/parser": "^4.14.2",
+    "chart.js": "^2.9.4",
     "eslint-plugin-react": "^7.22.0",
     "firebase": "^8.2.6",
     "react": "^17.0.1",

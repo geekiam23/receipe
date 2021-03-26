@@ -1,37 +1,47 @@
 import { Link } from "react-router-dom";
 
+import { auth } from "../../config/firebase";
+import { useHistory } from "react-router-dom";
+import { useState } from "react";
+
 const Menu = ({ openMenu }) => {
+  const history = useHistory();
+  const [error, setError] = useState(null);
+
   if (!openMenu) return null;
+
+  const handleSignOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        history.push("/signin");
+        setError(null);
+      })
+      .catch((e) => setError(e));
+  };
 
   return (
     <div>
+      {error && <div>Sorry, something went wrong. Please try again.</div>}
       <div
-        className="origin-top-right absolute right-5 top-10 mt-2 w-48 z-10 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5"
+        className="nav-user-menu-container"
         role="menu"
         aria-orientation="vertical"
         aria-labelledby="user-menu"
       >
-        <Link
-          to="/"
-          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-          role="menuitem"
-        >
+        <Link to="/" className="nav-user-menu-items" role="menuitem">
           Recipes
         </Link>
-        <a
-          href="#"
-          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-          role="menuitem"
-        >
+        <a href="#" className="nav-user-menu-items" role="menuitem">
           Settings
         </a>
-        <a
-          href="#"
-          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+        <div
+          onClick={handleSignOut}
+          className="nav-user-menu-items"
           role="menuitem"
         >
           Sign out
-        </a>
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,3 @@
-import React from "react";
 import ImageDescription from "./ImageWDescription";
 
 const Instructions = ({ step }) => {

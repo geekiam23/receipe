@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/analytics";
+import "firebase/auth";
 import "firebase/database";
 import "firebase/firestore";
 
@@ -20,7 +21,50 @@ if (!firebase.apps.length) {
   firebase.app();
 }
 
+export const createUserProfileDocument = async (
+  userAuth,
+  additionalData = null
+) => {
+  if (!userAuth) return;
+
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+
+  const snapShot = await userRef.get();
+
+  if (!snapShot.exists) {
+    const { displayName, email, photoURL } = userAuth;
+    const createdAt = new Date();
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        createdAt,
+        photoURL,
+        ...additionalData,
+      });
+    } catch (error) {
+      console.log("error creating user", error.message);
+    }
+  }
+
+  return userRef;
+};
+
+export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 export const database = firebase.database();
+
+const providerGoogle = new firebase.auth.GoogleAuthProvider();
+providerGoogle.setCustomParameters({ prompt: "select_account" });
+export const signInWithGoogle = () => auth.signInWithPopup(providerGoogle);
+
+const providerTwitter = new firebase.auth.TwitterAuthProvider();
+export const signInWithTwitter = () => auth.signInWithPopup(providerTwitter);
+
+const providerGithub = new firebase.auth.GithubAuthProvider();
+export const signInWithGithub = () => auth.signInWithPopup(providerGithub);
+
+const providerFacebook = new firebase.auth.FacebookAuthProvider();
+export const signInWithFacebook = () => auth.signInWithPopup(providerFacebook);
 
 export default firebase;

@@ -48,7 +48,7 @@ const Recipes = (): ReactElement => {
 
   return (
     <>
-      <div className="flex flex-col flex-1 overflow-hidden max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white">
+      <div className="recipe-container">
         <div className="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
           <h3 className="text-lg leading-6 font-medium text-gray-900">
             Random Recipes

@@ -1,5 +1,6 @@
 import { ReactElement, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
 import Instructions from "../components/Instructions";
 import Tags from "../components/Tags";
 import recipeData from "../recipe.json";
@@ -60,7 +61,7 @@ const Recipe = (): ReactElement => {
                 />
               </svg>
             </div>
-            <div className="relative mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-0 lg:max-w-none lg:pt-20 lg:pb-5">
+            <div className="recipe-image-container">
               <div className="relative pt-64 pb-10 rounded-2xl shadow-xl overflow-hidden">
                 <img
                   className="absolute inset-0 h-full w-full object-cover"
@@ -73,7 +74,7 @@ const Recipe = (): ReactElement => {
             <Tags recipe={recipe} />
 
             <div className="z-10 relative px-20 lg:py-3 lg:px-4 flex-wrap grid grid-cols-2">
-              {recipe.extendedIngredients.map((ingredient) => {
+              {recipe?.extendedIngredients?.map((ingredient) => {
                 return (
                   <div
                     key={ingredient.id}
@@ -100,7 +101,7 @@ const Recipe = (): ReactElement => {
             </div>
 
             <div className="border-t-4 border-black-100">
-              {recipe.analyzedInstructions[0].steps.map((step, index) => (
+              {recipe?.analyzedInstructions[0]?.steps.map((step) => (
                 <Instructions key={step.number} step={step} />
               ))}
             </div>
@@ -109,10 +110,10 @@ const Recipe = (): ReactElement => {
           <div className="relative mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-0">
             <div className="pt-12 sm:pt-16 lg:pt-20">
               <h2 className="text-3xl text-gray-900 font-extrabold tracking-tight sm:text-4xl">
-                {recipe.title}
+                {recipe?.title}
               </h2>
               <div className="mt-6 text-gray-500 space-y-6">
-                <div dangerouslySetInnerHTML={{ __html: recipe.summary }} />
+                <div dangerouslySetInnerHTML={{ __html: recipe?.summary }} />
               </div>
             </div>
 
@@ -137,6 +138,13 @@ const Recipe = (): ReactElement => {
                 </div>
 
                 <div className="border-t-2 border-gray-100 pt-6">
+                  <dt className="text-base font-medium text-gray-500">Likes</dt>
+                  <dd className="text-3xl font-extrabold tracking-tight text-gray-900">
+                    {recipe?.aggregateLikes}
+                  </dd>
+                </div>
+
+                <div className="border-t-2 border-gray-100 pt-6">
                   <dt className="text-base font-medium text-gray-500">
                     Servings
                   </dt>
@@ -157,15 +165,7 @@ const Recipe = (): ReactElement => {
                     Health Score
                   </dt>
                   <dd className="text-3xl font-extrabold tracking-tight text-gray-900">
-                    {recipe.healthScore}
-                  </dd>
-                </div>
-                <div className="border-t-2 border-gray-100 py-6">
-                  <dt className="text-base font-medium text-gray-500">
-                    Price per Serving
-                  </dt>
-                  <dd className="text-3xl font-extrabold tracking-tight text-gray-900">
-                    {recipe.pricePerServing}
+                    {recipe?.pricePerServing}
                   </dd>
                 </div>
               </div>
@@ -174,7 +174,7 @@ const Recipe = (): ReactElement => {
                   Wine Pairings
                 </dt>
                 <dd className="text-3xl tracking-tight text-gray-900 capitalize">
-                  {recipe.winePairing.pairedWines.join(" , ")}
+                  {recipe?.winePairing?.pairedWines?.join(" , ")}
                 </dd>
               </div>
               <div className="border-t-2 border-gray-100 py-6">
@@ -182,20 +182,20 @@ const Recipe = (): ReactElement => {
                   Suggested Wines
                 </dt>
                 <dd className="text-3xl tracking-tight text-gray-900 capitalize">
-                  {recipe.winePairing.productMatches.length > 0 &&
-                    recipe.winePairing.productMatches.map((product) => {
+                  {recipe?.winePairing?.productMatches?.length > 0 &&
+                    recipe?.winePairing?.productMatches?.map((product) => {
                       return (
-                        <div key={product.id} className="py-5">
+                        <div key={product?.id} className="py-5">
                           <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                             <div className="sm:col-span-2">
                               <dt className="text-sm font-medium text-gray-500">
                                 Wine
                               </dt>
                               <a
-                                href={product.link}
+                                href={product?.link}
                                 className="mt-1 text-sm text-gray-900"
                               >
-                                {product.title}
+                                {product?.title}
                               </a>
                             </div>
                             <div className="sm:col-span-1">
@@ -203,7 +203,7 @@ const Recipe = (): ReactElement => {
                                 Average Rating
                               </dt>
                               <dd className="mt-1 text-sm text-gray-900">
-                                {product.averageRating.toFixed(2)}
+                                {product?.averageRating.toFixed(2)}
                               </dd>
                             </div>
                             <div className="sm:col-span-1">
@@ -211,7 +211,7 @@ const Recipe = (): ReactElement => {
                                 Number of Reviews
                               </dt>
                               <dd className="mt-1 text-sm text-gray-900">
-                                {product.ratingCount}
+                                {product?.ratingCount}
                               </dd>
                             </div>
                             <div className="sm:col-span-1">
@@ -219,7 +219,7 @@ const Recipe = (): ReactElement => {
                                 Price
                               </dt>
                               <dd className="mt-1 text-sm text-gray-900">
-                                {product.price}
+                                {product?.price}
                               </dd>
                             </div>
                             <div className="sm:col-span-2">
@@ -227,7 +227,7 @@ const Recipe = (): ReactElement => {
                                 Desciption
                               </dt>
                               <dd className="mt-1 text-sm text-gray-900">
-                                {product.description}
+                                {product?.description}
                               </dd>
                             </div>
                           </dl>
